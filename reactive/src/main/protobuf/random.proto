@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package grpc.playground.random;
+
+option java_multiple_files = true;
+option java_package = "grpc.playground.random";
+option java_outer_classname = "RandomProto";
+
+
+// The random number generator
+service RandomNumber {
+  rpc GenerateNumber(NumberRequest) returns (stream NumberResponse) {}
+}
+
+message NumberRequest {
+  int32 min = 1;
+  int32 max = 2;
+  int32 elements = 3;
+}
+
+message NumberResponse {
+  int32 num = 1;
+  int32 count = 2;
+  int32 total = 3;
+}
+
+// The random string generator
+service RandomString {
+  rpc GenerateString(StringRequest) returns (stream StringResponse) {}
+}
+
+message StringRequest {
+  int32 length = 1;
+  int32 elements = 2;
+}
+
+message StringResponse {
+  string str = 1;
+  int32 count = 2;
+  int32 total = 3;
+}

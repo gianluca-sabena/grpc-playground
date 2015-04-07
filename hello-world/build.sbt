@@ -1,8 +1,10 @@
 import sbtprotobuf.{ProtobufPlugin=>PB}
 
+Revolver.settings
+
 Seq(PB.protobufSettings: _*)
 
-name := """grpc-playground"""
+name := """grpc-playground-hello-world"""
 
 organization  := "gianluca-sabena"
 
@@ -19,7 +21,6 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 val grpcJavaProtobufPlugin = Path.userHome.absolutePath+"/repos/clones/grpc-java/compiler/build/binaries/java_pluginExecutable/java_plugin"
 
 libraryDependencies ++= Seq(
-  "io.grpc" % "grpc-okhttp" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-core" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-netty" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-stub" % "0.1.0-SNAPSHOT"
@@ -40,3 +41,5 @@ protocOptions in PB.protobufConfig ++= Seq(
   "--plugin=protoc-gen-java_rpc="+grpcJavaProtobufPlugin,
   "--java_rpc_out=target/scala-2.11/src_managed/main/compiled_protobuf"
 )
+
+//set mainClass in Revolver.reStart := Some("grpc.playground.random.RandomClient")
