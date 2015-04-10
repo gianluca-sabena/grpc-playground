@@ -21,16 +21,17 @@ scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 val grpcJavaProtobufPlugin = Path.userHome.absolutePath+"/repos/clones/grpc-java/compiler/build/binaries/java_pluginExecutable/java_plugin"
 
 libraryDependencies ++= Seq(
-  "io.grpc" % "grpc-okhttp" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-core" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-netty" % "0.1.0-SNAPSHOT",
   "io.grpc" % "grpc-stub" % "0.1.0-SNAPSHOT",
-  "io.reactivex" %% "rxscala" % "0.24.1"
+  "io.reactivex" %% "rxscala" % "0.24.1",
+  "com.storm-enroute" %% "scalameter" % "0.6"
 )
 
 resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
-  "Local Maven" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
+  "Local Maven" at Path.userHome.asFile.toURI.toURL + ".m2/repository",
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/releases"
 )
 
 version in PB.protobufConfig := "3.0.0-alpha-2"
@@ -43,5 +44,9 @@ protocOptions in PB.protobufConfig ++= Seq(
   "--plugin=protoc-gen-java_rpc="+grpcJavaProtobufPlugin,
   "--java_rpc_out=target/scala-2.11/src_managed/main/compiled_protobuf"
 )
+
+testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
+
+parallelExecution in Test := false
 
 //set mainClass in Revolver.reStart := Some("grpc.playground.random.RandomClient")

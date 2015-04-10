@@ -15,11 +15,12 @@ class RandomNumberImpl extends RandomNumberGrpc.RandomNumber {
   val rnd = new scala.util.Random
   override def generateNumber(req: NumberRequest, responseObserver: StreamObserver[NumberResponse]) {
     //val reply: HelloResponse  = HelloResponse.newBuilder().setMessage("Hello " + req.getName).build();
+    println(s" >>> client request ${req.getElements} random number(s) in range (${req.getMin},${req.getMax})")
     (1 to req.getElements).foreach(i => {
       val num = req.getMin + rnd.nextInt((req.getMax - req.getMin) + 1)
       val reply: NumberResponse = NumberResponse.newBuilder().setNum(num).setCount(i).setTotal(req.getElements).build()
       responseObserver.onValue(reply)
-      println(s" >>> client request ${req.getElements} random number(s) in range (${req.getMin},${req.getMax}) - $i/${req.getElements} >>> ${reply.getNum}")
+      //Thread.sleep(10)// simulate slow response
     })
     responseObserver.onCompleted()
   }
@@ -33,6 +34,7 @@ class RandomStringImpl extends RandomStringGrpc.RandomString {
       val str = rnd.nextString(req.getLength)
       val reply: StringResponse = StringResponse.newBuilder().setStr(str).setCount(i).setTotal(req.getElements).build()
       responseObserver.onValue(reply)
+      //Thread.sleep(10) // simulate slow response
       println(s" >>> client request ${req.getElements} random string(s) with length (${req.getLength}}) - $i/${req.getElements} >>> ${reply.getStr}")
     })
     responseObserver.onCompleted()
