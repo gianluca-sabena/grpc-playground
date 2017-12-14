@@ -1,2 +1,5 @@
 target
 .idea
+git-clone
+.vscode
+.DS_Store
