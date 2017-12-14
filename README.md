@@ -14,7 +14,7 @@ Install grpc pre-requisites before <https://github.com/grpc/grpc/blob/master/INS
 
 A service to measure total round trip latency
 
-- [scalapb latency](./scala-latency)
+- [scalapb latency](./scalapb-latency)
 
 ## Old experiments
 
