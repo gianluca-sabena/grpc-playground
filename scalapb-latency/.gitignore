@@ -1,0 +1,33 @@
+
+*.class
+*.log
+
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+.cache-main
+.classpath
+.project
+.settings/
+
+# ENSIME specific
+project/.ensime
+.ensime_cache/
+.ensime
+
+# IDEA specific
+.idea
+
+.DS_Store
+javac-services.0.log.lck

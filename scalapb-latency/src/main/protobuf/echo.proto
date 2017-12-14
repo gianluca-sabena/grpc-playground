@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package boilerplate.grpc.protos;
+
+service Echo {
+    rpc BidirectionalStream ( stream MessageReq) returns (stream MessageRes) {}
+    rpc ResponseStream (MessageReq) returns (stream MessageRes) {}
+}
+
+message MessageReq {
+    int64 ts = 1;
+    int64 messageCount = 2;
+    int64 burstCount = 3;
+    bytes payload = 4;
+}
+
+message MessageRes {
+    int64 ts = 1;
+    int64 messageCount = 2;
+    int64 burstCount = 3;
+    bytes payload = 4;
+}

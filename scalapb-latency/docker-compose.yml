@@ -1,0 +1,32 @@
+version: '2'
+services:
+  receiver:
+    build: .
+    image: boilerplate/local/grpc:source
+    ports:
+     - "9000:9000"
+    command: >
+      java -Xmx2048m
+      -Dloglevel.boilerplate.grpc=DEBUG
+      -jar /opt/app/app.jar receiver
+  sender:
+    image: boilerplate/local/grpc:source
+    command: >
+      java -Xmx2048m
+      -Dapplication.sender.receiver.host=receiver
+      -Dloglevel.boilerplate.grpc=DEBUG
+      -Dapplication.metrics.console-reporter.interval=240
+      -jar /opt/app/app.jar sender
+
+#      -Dapplication.endpoints.0.label=case_A
+#      -Dapplication.endpoints.0.payload=64
+#      -Dapplication.endpoints.0.interval=100
+#      -Dapplication.endpoints.0.requests=50
+#      -Dapplication.endpoints.1.label=case_B
+#      -Dapplication.endpoints.1.payload=4096
+#      -Dapplication.endpoints.1.interval=1000
+#      -Dapplication.endpoints.1.requests=500
+
+
+# case_B -> 500 messages (4 KB)  every 1000 milliseconds
+# case_A -> 50 messages (64 bytes)  every 100 milliseconds
