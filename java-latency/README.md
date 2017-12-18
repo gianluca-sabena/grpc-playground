@@ -1,4 +1,4 @@
-# GRPC Java LAtency
+# GRPC Java examples
 
 ## Hello world example
 

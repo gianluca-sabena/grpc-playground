@@ -11,11 +11,11 @@
     </appender>
 
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 
-    <logger name="boilerplate"    level="${loglevel.boilerplate:-DEBUG}"></logger>
+    <logger name="boilerplates"    level="${loglevel.boilerplates:-INFO}"></logger>
 
 
 
