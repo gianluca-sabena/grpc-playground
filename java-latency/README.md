@@ -11,7 +11,12 @@ Open two terminal
 
 ## Echo server
 
-Open two terminal
+Run with maven
 
 - Start Server `mvn compile exec:java -Dexec.mainClass=boilerplates.EchoServer`
 - Start Client `mvn compile exec:java -Dexec.mainClass=boilerplates.EchoClient`
+
+Run uber jar
+
+- Start Server `java -cp target/java-latency-1.8.0.jar boilerplates.EchoServer`
+- Start Client `java -cp target/java-latency-1.8.0.jar boilerplates.EchoClient`

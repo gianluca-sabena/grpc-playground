@@ -6,6 +6,10 @@
 .project
 *.iml
 
+# App
+
+*.log
+
 # Maven
 target/
 pom.xml.tag

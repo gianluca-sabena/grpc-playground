@@ -20,10 +20,14 @@ package boilerplates;
 import boilerplates.proto.echo.*;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import io.grpc.netty.NettyServerBuilder;
 import io.grpc.stub.StreamObserver;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.net.InetSocketAddress;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
@@ -31,14 +35,15 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
  * Server that manages startup/shutdown of a {@code Greeter} server.
  */
 public class EchoServer {
-  private static final Logger logger = Logger.getLogger(EchoServer.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(EchoClient.class);
 
   private Server server;
 
   private void start() throws IOException {
     /* The port on which the server should run */
     int port = 50051;
-    server = ServerBuilder.forPort(port)
+    server =
+        NettyServerBuilder.forAddress(new InetSocketAddress("localhost", port))
         .addService(new EchoImpl())
         .build()
         .start();
@@ -100,11 +105,12 @@ public class EchoServer {
 
         @Override
         public void onNext(MessageReq req) {
-          logger.info("Got a message with ts:" +req.getTs() );
+          logger.debug("Got a message with ts:" +req.getTs() );
           MessageRes res = MessageRes.newBuilder()
               .setTs(req.getTs())
               .setMessageCount(req.getMessageCount())
               .setBurstCount(req.getMessageCount())
+              .setPayload(req.getPayload())
               .build();
           responseObserver.onNext(res);
         }
