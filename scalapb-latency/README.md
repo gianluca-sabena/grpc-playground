@@ -3,8 +3,8 @@
 Grpc client and server to measure round trip latency
 
 - To compile the file `hello.proto` run `sbt compile`
-- Start receiver `sbt run receiver` to run all the main
-- Start sender `sbt run sender` to run all the main
+- Start receiver `sbt "run receiver"` to run all the main
+- Start sender `sbt "run sender"` to run all the main
 
 ## Notes
 
